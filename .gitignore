@@ -9,3 +9,6 @@ node_modules/
 
 #vscode settings files
 .vscode/
+
+#various sql scripting
+mysqlScripts/

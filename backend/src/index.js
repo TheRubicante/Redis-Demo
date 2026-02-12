@@ -1,25 +1,39 @@
-// Entry point for the backend application.
-// This file wires everything together but contains no game logic.
-
 const express = require("express");
+const cors = require("cors");
 const routes = require("./routes");
+const { connectRedis } = require("./redis"); // import
 
 const app = express();
 
-// Parse JSON bodies
+// Enable CORS
+app.use(cors());
+
+// Parse JSON
 app.use(express.json());
 
-// Mount API routes
-app.use("/api", routes);
+// Function to start the server
+async function startServer() {
+  try {
+    // Connect to Redis before handling any requests
+    await connectRedis();
+    console.log("Redis connected");
 
-// Health check endpoint
-// Useful for sanity checks and demos
-app.get("/health", (req, res) => {
-  res.json({ status: "ok" });
-});
+    // Mount routes
+    app.use("/api", routes);
 
-// Start HTTP server
-const PORT = 3000;
-app.listen(PORT, () => {
-  console.log(`Backend running on port ${PORT}`);
-});
+    // Health check
+    app.get("/health", (req, res) => {
+      res.json({ status: "ok" });
+    });
+
+    const PORT = 3000;
+    app.listen(PORT, () => {
+      console.log(`Backend running on port ${PORT}`);
+    });
+  } catch (err) {
+    console.error("Failed to start backend:", err);
+  }
+}
+
+// Start everything
+startServer();
