@@ -1,0 +1,14 @@
+{
+  "name": "idle-game-backend",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql2": "^3.9.0",
+    "redis": "^4.6.7"
+  }
+}

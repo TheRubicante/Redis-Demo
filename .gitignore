@@ -1,0 +1,8 @@
+# Node  dependencies declared in json
+node_modules/
+
+# Environment   standard practice for securing environment variables
+.env
+
+# OS   MacOS artifact
+.DS_Store

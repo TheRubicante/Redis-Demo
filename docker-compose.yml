@@ -1,0 +1,26 @@
+version: "3.9" 
+#for modern docker compose features like volumes
+
+#defualt Docker recommended images for mysql and redis
+services:
+  mysql:
+    image: mysql:8.0 
+    container_name: idle_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: idle_game
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  redis:
+    image: redis:7
+    container_name: idle_redis
+    ports:
+      - "6379:6379"
+    # No persistence configured on purpose.
+    # Redis is treated as volatile runtime state.
+
+volumes:
+  mysql_data:
